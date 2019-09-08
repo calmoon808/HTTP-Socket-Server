@@ -13,32 +13,28 @@ const server = net.createServer((socket) => {
 
     // parse the string
     let splitArr = strData.split('\r\n');
-    // console.log(splitArr);
-    let URL = splitArr[0].slice(splitArr[0].indexOf('/'), splitArr[0].indexOf('H') - 1);
+    let URLarr = splitArr[0].split('/');
+    URLarr = URLarr[1].split(' ');
+    URL = URLarr[0];
 
     // grab the right file
     let response = '';
     let code = ''
-    if (URL === '/' || URL === '/index.html'){
+    if (URL === '' || URL === 'index.html'){
         code = '200 OK';
-        response = `HTTP/1.1 ${code}\nServer: jah\nDate: ${date}\nContent-Type: text/html; charset=utf-8\nContent-Length: ${files.index.length}\nConnection: keep-alive\n\n
-        ${files.index}`;
-    } else if (URL === '/helium.html'){
+        response = `HTTP/1.1 ${code}\r\nServer: localhost\r\nDate: ${date}\r\nContent-Type: text/html; charset=utf-8\r\nContent-Length: ${files.index.length}\r\nConnection: keep-alive\r\n\r\n${files.index}`;
+    } else if (URL === 'helium.html'){
         code = '200 OK';
-        response = `HTTP/1.1 ${code}\nServer: jah\nDate: ${date}\nContent-Type: text/html; charset=utf-8\nContent-Length: ${files.helium.length}\nConnection: keep-alive\n\n
-        ${files.helium}`;
-    } else if (URL === '/hydrogen.html'){
+        response = `HTTP/1.1 ${code}\r\nServer: localhost\r\nDate: ${date}\r\nContent-Type: text/html; charset=utf-8\r\nContent-Length: ${files.helium.length}\r\nConnection: keep-alive\r\n\r\n${files.helium}`;
+    } else if (URL === 'hydrogen.html'){
         code = '200 OK';
-        response = `HTTP/1.1 ${code}\nServer: jah\nDate: ${date}\nContent-Type: text/html; charset=utf-8\nContent-Length: ${files.hydrogen.length}\nConnection: keep-alive\n\n
-        ${files.hydrogen}`;
-    } else if (URL === '/styles.css'){
+        response = `HTTP/1.1 ${code}\r\nServer: localhost\r\nDate: ${date}\r\nContent-Type: text/html; charset=utf-8\r\nContent-Length: ${files.hydrogen.length}\r\nConnection: keep-alive\r\n\r\n${files.hydrogen}`;
+    } else if (URL === 'styles.css'){
         code = '200 OK';
-        response = `HTTP/1.1 ${code}\nServer: jah\nDate: ${date}\nContent-Type: text/css; charset=utf-8\nContent-Length: ${files.styles.length}\nConnection: keep-alive\n\n
-        ${files.styles}`;
+        response = `HTTP/1.1 ${code}\r\nServer: localhost\r\nDate: ${date}\r\nContent-Type: text/css; charset=utf-8\r\nContent-Length: ${files.styles.length}\nConnection: keep-alive\r\n\r\n${files.styles}`;
     } else {
         code = '404 NOT FOUND';
-        response = `HTTP/1.1 ${code}\nServer: jah\nDate: ${date}\nContent-Type: text/html; charset=utf-8\nContent-Length: ${files.notFound.length}\nConnection: keep-alive\n\n
-        ${files.notFound}`;
+        response = `HTTP/1.1 ${code}\r\nServer: localhost\r\nDate: ${date}\r\nContent-Type: text/html; charset=utf-8\r\nContent-Length: ${files.notFound.length}\r\nConnection: keep-alive\r\n\r\n${files.notFound}`;
     }
 
     // write outgoing data

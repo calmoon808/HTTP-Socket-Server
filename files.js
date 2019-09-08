@@ -178,3 +178,4 @@ const files = {
 }
 
 module.exports = files;
+console.log(files.index.length);
